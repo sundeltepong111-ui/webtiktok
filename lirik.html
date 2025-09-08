@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lirik Lagu — Efek Mengetik</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #fff;
+      font-family: "Courier New", monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #7c3aed;
+      margin-bottom: 10px;
+    }
+
+    #lyrics {
+      white-space: pre-wrap;
+      font-size: 22px;
+      border-right: 2px solid #7c3aed;
+      width: 80%;
+      max-width: 700px;
+      overflow: hidden;
+    }
+
+    audio {
+      margin-top: 20px;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎵 Lirik Lagu 🎵</h1>
+  <div id="lyrics"></div>
+  <audio id="song" controls>
+    <source src="lagu.mp3" type="audio/mp3">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+  <script>
+    const lyrics = `
+tak perlu khawatir ku hanya terluka 
+terbiasa tuk pura pura tertawa
+namun bolehkah sekali saja ku menangis
+sebelum kembali membohongi diri
+`; // <-- Ganti dengan lirik lagumu
+
+    const lyricsContainer = document.getElementById("lyrics");
+    const song = document.getElementById("song");
+
+    let index = 0;
+    let isPlaying = false;
+
+    function typeLyrics() {
+      if (index < lyrics.length && isPlaying) {
+        lyricsContainer.textContent += lyrics.charAt(index);
+        index++;
+        setTimeout(typeLyrics, 80); // Kecepatan ketikan
+      }
+    }
+
+    song.addEventListener("play", () => {
+      if (!isPlaying) {
+        isPlaying = true;
+        typeLyrics();
+      }
+    });
+
+    song.addEventListener("pause", () => {
+      isPlaying = false;
+    });
+
+    song.addEventListener("ended", () => {
+      isPlaying = false;
+    });
+  </script>
+</body>
+</html>
